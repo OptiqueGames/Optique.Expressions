@@ -66,6 +66,7 @@ using Unity.Mathematics;
 ...
 
 evaluator.RegisterFunctionsFromType(typeof(math));
+evaluator.FunctionParserSettings.IgnoreCase = true;
 
 float2 a = new float2(1f, 0.1f);
 float2 b = new float2(0f, 1f);
@@ -75,7 +76,7 @@ evaluator.RegisterVariable(nameof(a), () => a);
 evaluator.RegisterVariable(nameof(b), () => b);
 evaluator.RegisterVariable(nameof(c), () => c);
 
-Expression expression = parser.Parse("dot(a * 2, b + c)");
+Expression expression = parser.Parse("DOT(a * 2, b + c)");
 
 Debug.Log(expression.Calculate() == math.dot(a * 2, b + c)); // true
 ```
