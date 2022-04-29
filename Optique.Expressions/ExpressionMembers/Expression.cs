@@ -49,7 +49,7 @@ namespace Optique.Expressions
                     result = new Literal(_operators[i].Operate(result, _arguments[i + 1]));
                 }
 
-                return result;
+                return result.GetValue();
             }
         }
 
