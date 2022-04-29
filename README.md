@@ -12,7 +12,7 @@ Optique.Reflection is an expressions evaluating engine
 - Support most of literals: `int`, `float`, `bool`, `string`
 - Functions registration:
   - Custom static methods by its MethodInfo
-  - Extracting all public static methods from a target type to use it in in expressions
+  - Extracting all public static methods from a target type to use it in expressions
 - Variables registration:
   - By name and its getter and optional setter
   - By IReadOnlyValueField interface
