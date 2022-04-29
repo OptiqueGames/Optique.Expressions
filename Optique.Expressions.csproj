@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{FF6C1D2B-68EF-4533-BEF0-1460199A28BF}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>Expressions</RootNamespace>
+        <AssemblyName>Optique.Expressions</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="Optique.Reflection">
+          <HintPath>Dependencies\Optique.Reflection.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml" />
+
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Optique.Expressions\ExpressionEvaluator.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\BinaryOperator.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Constructor.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Expression.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\ExpressionArgument.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Extensions\BinaryOperatorExtensions.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Function.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Literal.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\ReadOnlyVariable.cs" />
+        <Compile Include="Optique.Expressions\ExpressionMembers\Variable.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\INameable.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IParser.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IReadOnlyValueField.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IValueContainer.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IValueField.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IValueGetter.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IValueSetter.cs" />
+        <Compile Include="Optique.Expressions\Parsers\BinaryOperatorParser.cs" />
+        <Compile Include="Optique.Expressions\Parsers\ExpressionParser.cs" />
+        <Compile Include="Optique.Expressions\Parsers\FunctionParser.cs" />
+        <Compile Include="Optique.Expressions\Parsers\LiteralParser.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\BinaryOperatorParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\Extensions\BinaryOperatorParserSettingsExtensions.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\FunctionParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\LiteralParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\VariableParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\VariableParser.cs" />
+        <Compile Include="Optique.Expressions\Utilities\Operators.cs" />
+        <Compile Include="Optique.Expressions\Utilities\ParsingUtility.cs" />
+        <Compile Include="Properties\Optique.Expressions.AssemblyInfo.cs" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+
+</Project>
