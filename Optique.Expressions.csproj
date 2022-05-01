@@ -60,13 +60,16 @@
         <Compile Include="Optique.Expressions\Interfaces\IValueGetter.cs" />
         <Compile Include="Optique.Expressions\Interfaces\IValueSetter.cs" />
         <Compile Include="Optique.Expressions\Parsers\BinaryOperatorParser.cs" />
+        <Compile Include="Optique.Expressions\Parsers\ConstructorParser.cs" />
         <Compile Include="Optique.Expressions\Parsers\ExpressionParser.cs" />
         <Compile Include="Optique.Expressions\Parsers\FunctionParser.cs" />
         <Compile Include="Optique.Expressions\Parsers\LiteralParser.cs" />
         <Compile Include="Optique.Expressions\Parsers\Settings\BinaryOperatorParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\ConstructorParserSettings.cs" />
         <Compile Include="Optique.Expressions\Parsers\Settings\Extensions\BinaryOperatorParserSettingsExtensions.cs" />
         <Compile Include="Optique.Expressions\Parsers\Settings\FunctionParserSettings.cs" />
         <Compile Include="Optique.Expressions\Parsers\Settings\LiteralParserSettings.cs" />
+        <Compile Include="Optique.Expressions\Parsers\Settings\ParserSettings.cs" />
         <Compile Include="Optique.Expressions\Parsers\Settings\VariableParserSettings.cs" />
         <Compile Include="Optique.Expressions\Parsers\VariableParser.cs" />
         <Compile Include="Optique.Expressions\Utilities\Operators.cs" />

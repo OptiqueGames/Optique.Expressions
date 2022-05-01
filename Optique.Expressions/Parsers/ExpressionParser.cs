@@ -11,6 +11,7 @@ namespace Optique.Expressions
         private readonly IParser<Literal> _literalParser;
         private readonly IParser<IReadOnlyValueField> _variableParser;
         private readonly IParser<Function> _functionParser;
+        private readonly IParser<Constructor> _constructorParser;
         private readonly IParser<BinaryOperator> _operatorParser;
         private readonly IParser<IValueGetter>[] _parsers;
 
@@ -18,14 +19,16 @@ namespace Optique.Expressions
                 IParser<Literal> literalParser,
                 IParser<IReadOnlyValueField> variableParser,
                 IParser<Function> functionParser,
+                IParser<Constructor> constructorParser,
                 IParser<BinaryOperator> operatorParser)
         {
             _literalParser = literalParser;
             _variableParser = variableParser;
             _functionParser = functionParser;
+            _constructorParser = constructorParser;
             _operatorParser = operatorParser;
 
-            _parsers = new IParser<IValueGetter>[] {_literalParser, _variableParser, _functionParser};
+            _parsers = new IParser<IValueGetter>[] {_literalParser, _variableParser, _functionParser, _constructorParser};
         }
 
         public bool Validate(string unparsedValue)
