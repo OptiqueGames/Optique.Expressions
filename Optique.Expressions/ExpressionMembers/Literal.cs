@@ -4,9 +4,15 @@
 	{
 		private readonly dynamic _value;
 
+
 		public Literal(dynamic value)
 		{
 			_value = value;
+		}
+
+		public dynamic GetValue()
+		{
+			return _value;
 		}
 
 		public override string ToString()
@@ -23,11 +29,6 @@
 			{
 				return _value.ToString();
 			}
-		}
-
-		public dynamic GetValue()
-		{
-			return _value;
 		}
 	}
 }

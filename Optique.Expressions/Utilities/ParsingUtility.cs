@@ -9,7 +9,7 @@ namespace Optique.Expressions
         private const string NewOperatorSubstring = "new ";
         private const string TemporaryUtilitySubstring = "[~]";
 
-        
+
         public static string ClearWhiteSpaces(string unparsedValue)
         {
             if (unparsedValue.Contains(NewOperatorSubstring))

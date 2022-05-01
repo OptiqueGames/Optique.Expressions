@@ -51,7 +51,7 @@ namespace Optique.Expressions
         {
             return _list.Contains(variable) || ContainsVariable(variable.Name);
         }
-        
+
         internal bool ContainsVariable(string variableName)
         {
             return _list.Any(valueField => valueField.Name.Equals(variableName));

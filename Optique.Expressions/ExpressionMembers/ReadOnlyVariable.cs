@@ -16,14 +16,14 @@ namespace Optique.Expressions
             _nameGetter = nameGetter;
         }
 
-        public override string ToString()
-        {
-            return _nameGetter();
-        }
-
         public dynamic GetValue()
         {
             return _variableGetter.Invoke();
+        }
+
+        public override string ToString()
+        {
+            return _nameGetter();
         }
     }
 }

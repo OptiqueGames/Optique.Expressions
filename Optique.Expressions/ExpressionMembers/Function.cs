@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -26,7 +25,6 @@ namespace Optique.Expressions
 
 		private dynamic Calculate()
 		{
-			MethodInfo meth = new Func<dynamic>(Calculate).Method;
 			return _methodInfo.Invoke(null, _arguments.Select(arg => (object) arg.GetValue()).ToArray());
 		}
 

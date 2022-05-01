@@ -10,6 +10,7 @@ namespace Optique.Expressions
     {
         private readonly VariableParserSettings _settings;
 
+
         public VariableParser(VariableParserSettings settings)
         {
             _settings = settings;
@@ -36,7 +37,7 @@ namespace Optique.Expressions
             {
                 throw new Exception("Invalid variable");
             }
-            
+
             string rootName = GetRootName(unparsedValue);
 
             foreach (IReadOnlyValueField field in _settings.Variables)

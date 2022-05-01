@@ -23,31 +23,6 @@ namespace Optique.Expressions
                    _settings.ParseString && IsString(unparsedValue);
         }
 
-        private string RemoveSuffix(string unparsedValue)
-        {
-            if (char.IsDigit(unparsedValue[0]))
-            {
-                unparsedValue = unparsedValue.ToLower();
-                char lastChar = unparsedValue[unparsedValue.Length - 1];
-                if (unparsedValue.EndsWith("ul") || unparsedValue.EndsWith("lu"))
-                {
-                    unparsedValue = new string(unparsedValue.ToCharArray(0, unparsedValue.Length - 2));
-                }
-                else if (lastChar == 'f' || lastChar == 'd' || lastChar == 'm' || lastChar == 'u' || lastChar == 'l')
-                {
-                    unparsedValue = new string(unparsedValue.ToCharArray(0, unparsedValue.Length - 1));
-                }
-            }
-
-            return unparsedValue;
-        }
-
-        private bool IsString(string unparsedValue)
-        {
-            return unparsedValue.StartsWith("\"") && unparsedValue.EndsWith("\"") &&
-                   Regex.Matches(unparsedValue, "\"").Count == 2;
-        }
-
         public Literal Parse(string unparsedValue)
         {
             if (Validate(unparsedValue) == false)
@@ -81,6 +56,31 @@ namespace Optique.Expressions
             }
 
             return new Literal(value);
+        }
+
+        private string RemoveSuffix(string unparsedValue)
+        {
+            if (char.IsDigit(unparsedValue[0]))
+            {
+                unparsedValue = unparsedValue.ToLower();
+                char lastChar = unparsedValue[unparsedValue.Length - 1];
+                if (unparsedValue.EndsWith("ul") || unparsedValue.EndsWith("lu"))
+                {
+                    unparsedValue = new string(unparsedValue.ToCharArray(0, unparsedValue.Length - 2));
+                }
+                else if (lastChar == 'f' || lastChar == 'd' || lastChar == 'm' || lastChar == 'u' || lastChar == 'l')
+                {
+                    unparsedValue = new string(unparsedValue.ToCharArray(0, unparsedValue.Length - 1));
+                }
+            }
+
+            return unparsedValue;
+        }
+
+        private bool IsString(string unparsedValue)
+        {
+            return unparsedValue.StartsWith("\"") && unparsedValue.EndsWith("\"") &&
+                   Regex.Matches(unparsedValue, "\"").Count == 2;
         }
     }
 }

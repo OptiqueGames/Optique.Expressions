@@ -23,6 +23,20 @@ namespace Optique.Expressions
             }
         }
 
+        public dynamic GetValue()
+        {
+            if (_hasUnaryNegation)
+            {
+                return !_valueGetter.GetValue();
+            }
+            else if (_hasUnaryMinus)
+            {
+                return -_valueGetter.GetValue();
+            }
+
+            return _valueGetter.GetValue();
+        }
+
         public override string ToString()
         {
             string prefix = string.Empty;
@@ -37,20 +51,6 @@ namespace Optique.Expressions
             }
 
             return $"{prefix}{_valueGetter}";
-        }
-
-        public dynamic GetValue()
-        {
-            if (_hasUnaryNegation)
-            {
-                return !_valueGetter.GetValue();
-            }
-            else if (_hasUnaryMinus)
-            {
-                return -_valueGetter.GetValue();
-            }
-
-            return _valueGetter.GetValue();
         }
     }
 }

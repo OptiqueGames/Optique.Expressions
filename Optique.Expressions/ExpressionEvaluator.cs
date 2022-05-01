@@ -90,7 +90,7 @@ namespace Optique.Expressions
         {
             VariableParsingSettings.AddVariable(variable);
         }
-        
+
         public bool IsVariableRegistered(string name)
         {
             return VariableParsingSettings.ContainsVariable(name);
