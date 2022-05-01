@@ -21,7 +21,7 @@ namespace Optique.Expressions
 
 		public bool Validate(string function)
 		{
-			if (string.IsNullOrEmpty(function))
+			if (_settings.IsActive == false || string.IsNullOrEmpty(function))
 			{
 				return false;
 			}

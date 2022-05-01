@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Optique.Expressions
 {
-    public class VariableParserSettings
+    public class VariableParserSettings : ParserSettings
     {
         public readonly IReadOnlyList<IReadOnlyValueField> Variables;
 

@@ -18,6 +18,11 @@ namespace Optique.Expressions
 
         public bool Validate(string unparsedValue)
         {
+            if (_settings.IsActive == false)
+            {
+                return false;
+            }
+            
             foreach (char c in unparsedValue)
             {
                 if (char.IsLetterOrDigit(c) == false && c != '_' && c != '.')

@@ -15,6 +15,11 @@ namespace Optique.Expressions
 
         public bool Validate(string unparsedValue)
         {
+            if (_settings.IsActive == false)
+            {
+                return false;
+            }
+            
             unparsedValue = RemoveSuffix(unparsedValue);
 
             return _settings.ParseInt && int.TryParse(unparsedValue, out int _) ||

@@ -38,7 +38,7 @@ namespace Optique.Expressions
 
         public bool Validate(string unparsedValue)
         {
-            if (Operations.ContainsKey(unparsedValue) == false)
+            if (_settings.IsActive == false || Operations.ContainsKey(unparsedValue) == false)
             {
                 return false;
             }

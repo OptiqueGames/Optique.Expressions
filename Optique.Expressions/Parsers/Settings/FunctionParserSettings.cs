@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Optique.Expressions
 {
-    public class FunctionParserSettings
+    public class FunctionParserSettings : ParserSettings
     {
         public bool IgnoreCase = false;
 
