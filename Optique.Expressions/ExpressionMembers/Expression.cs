@@ -43,7 +43,7 @@ namespace Optique.Expressions
             else
             {
                 Literal result = new Literal(_arguments[0].GetValue());
-                
+
                 for (int i = 0; i < operatorsCount; ++i)
                 {
                     result = new Literal(_operators[i].Operate(result, _arguments[i + 1]));

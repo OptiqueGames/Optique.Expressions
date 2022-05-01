@@ -1,6 +1,6 @@
 namespace Optique.Expressions
 {
-    public class BinaryOperatorParserSettings
+    public class BinaryOperatorParserSettings : ParserSettings
     {
         public bool ParseAddition = true;
         public bool ParseSubtraction = true;

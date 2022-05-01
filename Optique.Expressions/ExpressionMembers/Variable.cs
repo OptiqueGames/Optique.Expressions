@@ -9,18 +9,13 @@ namespace Optique.Expressions
         private readonly Func<string> _nameGetter;
 
         public string Name => _nameGetter();
-        
-        
+
+
         internal Variable(Func<dynamic> variableGetter, Action<dynamic> variableSetter, Func<string> nameGetter)
         {
             _variableGetter = variableGetter;
             _variableSetter = variableSetter;
             _nameGetter = nameGetter;
-        }
-
-        public override string ToString()
-        {
-            return _nameGetter();
         }
 
         public dynamic GetValue()
@@ -31,6 +26,11 @@ namespace Optique.Expressions
         public void SetValue(dynamic value)
         {
             _variableSetter(value);
+        }
+
+        public override string ToString()
+        {
+            return _nameGetter();
         }
     }
 }

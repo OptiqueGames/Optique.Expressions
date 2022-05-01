@@ -7,30 +7,33 @@ namespace Optique.Expressions
 {
     public class ExpressionParser : IParser<Expression>
     {
-        
+
         private readonly IParser<Literal> _literalParser;
         private readonly IParser<IReadOnlyValueField> _variableParser;
         private readonly IParser<Function> _functionParser;
+        private readonly IParser<Constructor> _constructorParser;
         private readonly IParser<BinaryOperator> _operatorParser;
-        
-        private IParser<IValueGetter>[] _parsers;
-        
+        private readonly IParser<IValueGetter>[] _parsers;
+
         internal ExpressionParser(
                 IParser<Literal> literalParser,
                 IParser<IReadOnlyValueField> variableParser,
                 IParser<Function> functionParser,
+                IParser<Constructor> constructorParser,
                 IParser<BinaryOperator> operatorParser)
         {
             _literalParser = literalParser;
             _variableParser = variableParser;
             _functionParser = functionParser;
+            _constructorParser = constructorParser;
             _operatorParser = operatorParser;
 
-            _parsers = new IParser<IValueGetter>[] {_literalParser, _variableParser, _functionParser};
+            _parsers = new IParser<IValueGetter>[] {_literalParser, _variableParser, _functionParser, _constructorParser};
         }
 
         public bool Validate(string unparsedValue)
         {
+            //TODO: implement full validation
             if (string.IsNullOrEmpty(unparsedValue) || string.IsNullOrWhiteSpace(unparsedValue))
             {
                 return false;
@@ -41,7 +44,6 @@ namespace Optique.Expressions
 
         private IValueGetter BuildArgument(IValueGetter valueGetter, bool hasUnaryMinus, bool hasUnaryNegation)
         {
-            //TODO: implement full validation
             if (hasUnaryMinus || hasUnaryNegation)
             {
                 return new ExpressionArgument(valueGetter, hasUnaryMinus, hasUnaryNegation);
@@ -69,7 +71,7 @@ namespace Optique.Expressions
 
             return includingExpressionParser ? Parse(unparsedValue) : null;
         }
-        
+
         public Expression Parse(string expression)
         {
             expression = ParsingUtility.ClearWhiteSpaces(expression);
@@ -128,7 +130,7 @@ namespace Optique.Expressions
                     }
                     else if (arguments.Count == 0 || operators.Count > arguments.Count)
                     {
-                        
+
                         if (parsedOperator.IsMatch(Operators.Subtraction))
                         {
                             nextOperandHasUnaryMinus = true;
@@ -220,8 +222,8 @@ namespace Optique.Expressions
                 if (operators.Count > assignmentsCount)
                 {
                     Expression right = new Expression(
-                        operators.GetRange(assignmentsCount, operators.Count - assignmentsCount).ToArray(),
-                        arguments.GetRange(assignmentsCount, arguments.Count - assignmentsCount).ToArray());
+                            operators.GetRange(assignmentsCount, operators.Count - assignmentsCount).ToArray(),
+                            arguments.GetRange(assignmentsCount, arguments.Count - assignmentsCount).ToArray());
 
                     operators.RemoveRange(assignmentsCount, operators.Count - assignmentsCount);
                     arguments.RemoveRange(assignmentsCount, arguments.Count - assignmentsCount);
@@ -234,7 +236,7 @@ namespace Optique.Expressions
                     while (operators.Count > 1)
                     {
                         Expression temp = new Expression(new[] {operators[operators.Count - 1]},
-                            new[] {arguments[arguments.Count - 2], arguments[arguments.Count - 1]});
+                                new[] {arguments[arguments.Count - 2], arguments[arguments.Count - 1]});
 
                         operators.RemoveAt(operators.Count - 1);
                         arguments.RemoveAt(arguments.Count - 1);

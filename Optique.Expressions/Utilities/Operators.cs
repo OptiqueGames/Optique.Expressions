@@ -3,7 +3,7 @@ namespace Optique.Expressions
     public static class Operators
     {
         public const string Assignment = "=";
-        
+
         public const string Addition = "+";
         public const string Subtraction = "-";
         public const string Multiplication = "*";

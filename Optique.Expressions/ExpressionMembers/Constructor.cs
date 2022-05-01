@@ -8,11 +8,23 @@ namespace Optique.Expressions
         private readonly Type _constructionType;
         private readonly IValueGetter[] _parameters;
 
-        
+
         internal Constructor(Type constructionType, params IValueGetter[] parameters)
         {
             _constructionType = constructionType;
             _parameters = parameters;
+        }
+
+        public dynamic GetValue()
+        {
+            object[] parameters = new object[_parameters.Length];
+
+            for (int i = 0; i < _parameters.Length; ++i)
+            {
+                parameters[i] = _parameters[i].GetValue();
+            }
+
+            return Activator.CreateInstance(_constructionType, parameters);
         }
 
         public override string ToString()
@@ -33,18 +45,6 @@ namespace Optique.Expressions
             result.Append(')');
 
             return result.ToString();
-        }
-
-        public dynamic GetValue()
-        {
-            object[] parameters = new object[_parameters.Length];
-
-            for (int i = 0; i < _parameters.Length; ++i)
-            {
-                parameters[i] = _parameters[i].GetValue();
-            }
-                
-            return Activator.CreateInstance(_constructionType, parameters);
         }
     }
 }

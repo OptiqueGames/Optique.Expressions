@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Optique.Reflection;
 
 namespace Optique.Expressions
 {
@@ -10,12 +11,14 @@ namespace Optique.Expressions
         public LiteralParserSettings LiteralParsingSettings { get; } = new LiteralParserSettings();
         public VariableParserSettings VariableParsingSettings { get; } = new VariableParserSettings();
         public FunctionParserSettings FunctionParserSettings { get; } = new FunctionParserSettings();
+        public ConstructorParserSettings ConstructorParserSettings { get; } = new ConstructorParserSettings();
 
         private readonly BinaryOperatorParser _binaryOperatorParser;
         private readonly LiteralParser _literalParser;
         private readonly VariableParser _variableParser;
         private readonly ExpressionParser _expressionParser;
         private readonly FunctionParser _functionParser;
+        private readonly ConstructorParser _constructorParser;
 
 
         private class ParserWrapper<T> : IParser<T>
@@ -34,8 +37,13 @@ namespace Optique.Expressions
             _literalParser = new LiteralParser(LiteralParsingSettings);
             _variableParser = new VariableParser(VariableParsingSettings);
             _functionParser = new FunctionParser(FunctionParserSettings, expressionParserWrapper);
-            _expressionParser =
-                    new ExpressionParser(_literalParser, _variableParser, _functionParser, _binaryOperatorParser);
+            _constructorParser = new ConstructorParser(ConstructorParserSettings, expressionParserWrapper);
+            _expressionParser = new ExpressionParser(
+                    _literalParser,
+                    _variableParser,
+                    _functionParser,
+                    _constructorParser,
+                    _binaryOperatorParser);
 
             expressionParserWrapper.Initialize(_expressionParser);
         }
@@ -45,6 +53,44 @@ namespace Optique.Expressions
             return _expressionParser;
         }
 
+        public void RegisterConstructionTypesFromNamespace(string @namespace, bool includeChildrenNamespaces = false)
+        {
+            Namespace space = ReflectionUtility.FindNamespace(@namespace);
+
+            if (space == null)
+            {
+                throw new Exception($"Invalid namespace '{@namespace}'");
+            }
+
+            void RegisterTypes(Namespace s)
+            {
+                RegisterConstructionTypes(s.Types.Where(t => t.IsPublic).ToArray());
+
+                if (includeChildrenNamespaces)
+                {
+                    foreach (Namespace n in s.Namespaces)
+                    {
+                        RegisterTypes(n);
+                    }
+                }
+            }
+
+            RegisterTypes(space);
+        }
+
+        public void RegisterConstructionTypes(params Type[] types)
+        {
+            foreach (Type type in types)
+            {
+                if (type.IsStatic() || type.IsAbstract)
+                {
+                    continue;
+                }
+                
+                ConstructorParserSettings.AddType(type);
+            }
+        }
+        
         public void RegisterFunctionsFromType(Type containerType)
         {
             RegisterFunctions(containerType.GetMethods(BindingFlags.Static | BindingFlags.Public));
@@ -90,7 +136,7 @@ namespace Optique.Expressions
         {
             VariableParsingSettings.AddVariable(variable);
         }
-        
+
         public bool IsVariableRegistered(string name)
         {
             return VariableParsingSettings.ContainsVariable(name);

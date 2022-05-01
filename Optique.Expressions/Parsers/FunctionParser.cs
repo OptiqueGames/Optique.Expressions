@@ -12,6 +12,7 @@ namespace Optique.Expressions
 		private readonly IParser<IValueGetter> _expressionParser;
 		private readonly FunctionParserSettings _settings;
 
+
 		public FunctionParser(FunctionParserSettings settings, IParser<IValueGetter> expressionParser)
 		{
 			_settings = settings;
@@ -20,7 +21,7 @@ namespace Optique.Expressions
 
 		public bool Validate(string function)
 		{
-			if (string.IsNullOrEmpty(function))
+			if (_settings.IsActive == false || string.IsNullOrEmpty(function))
 			{
 				return false;
 			}
@@ -117,7 +118,7 @@ namespace Optique.Expressions
 			}
 		}
 
-		private FunctionName GetFunctionName(string sourceText)
+		private static FunctionName GetFunctionName(string sourceText)
 		{
 			string name = sourceText.Substring(0, sourceText.IndexOf('('));
 			FunctionName functionName = new FunctionName();

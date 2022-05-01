@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Optique.Expressions
 {
-    public class VariableParserSettings
+    public class VariableParserSettings : ParserSettings
     {
         public readonly IReadOnlyList<IReadOnlyValueField> Variables;
 
@@ -31,6 +31,11 @@ namespace Optique.Expressions
             _list.Add(variable);
         }
 
+        internal IReadOnlyValueField GetVariable(string name)
+        {
+            return _list.FirstOrDefault(valueField => valueField.Name.Equals(name));
+        }
+
         internal void RemoveVariable(IReadOnlyValueField variable)
         {
             if (_list.Contains(variable))
@@ -51,7 +56,7 @@ namespace Optique.Expressions
         {
             return _list.Contains(variable) || ContainsVariable(variable.Name);
         }
-        
+
         internal bool ContainsVariable(string variableName)
         {
             return _list.Any(valueField => valueField.Name.Equals(variableName));
