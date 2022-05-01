@@ -31,6 +31,11 @@ namespace Optique.Expressions
             _list.Add(variable);
         }
 
+        internal IReadOnlyValueField GetVariable(string name)
+        {
+            return _list.FirstOrDefault(valueField => valueField.Name.Equals(name));
+        }
+
         internal void RemoveVariable(IReadOnlyValueField variable)
         {
             if (_list.Contains(variable))
