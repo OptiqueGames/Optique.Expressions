@@ -4,21 +4,24 @@ Optique.Reflection is an expressions evaluating engine
 
 ## Features
 
-- Support most of operators: 
+- **Support most of operators**: 
   - Unary numeric and logical negation (`-`, `!`)
   - Binary arithmetic (`+`, `-`, `*`, `/`, `%`)
   - Comparison and equality (`>`, `<`, `>=`, `<=`, `==`, `!=`)
   - Logical (`&`, `|`, `&&`, `||`)
-- Support most of literals: `int`, `float`, `bool`, `string`
-- Functions registration:
+- **Support most of literals**: `int`, `float`, `bool`, `string`
+- **Functions registration**:
   - Custom static methods by its MethodInfo
   - Extracting all public static methods from a target type to use it in expressions
-- Variables registration:
+- **Variables registration**:
   - By name and its getter and optional setter
   - By IReadOnlyValueField interface
   - By extracting all public constants from a target type
-- Access variables via dot (`.`) operator
-- Using overloaded operators of user types
+- **Constructors registration**:
+  - From a set of types
+  - From all types under a namespace
+- **Access variables via dot operator**
+- **Using overloaded operators of user types**
 
 ## Requirements
 
