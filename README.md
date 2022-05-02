@@ -83,3 +83,10 @@ Expression expression = parser.Parse("DOT(a * 2, b + c)");
 
 Debug.Log(expression.Calculate() == math.dot(a * 2, b + c)); // true
 ```
+
+Construction custom types:
+```csharp
+evaluator.RegisterConstructionTypesFromNamespace("Unity.Mathematics");
+string expressionText = "new float3(1f, 0f, 0f) + new float3(0f, 1f, 0f)";
+float3 result = parser.Parse(expressionText).Calculate(); // float3(1f, 1f, 0f)
+```
