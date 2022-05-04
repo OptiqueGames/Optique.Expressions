@@ -5,7 +5,7 @@ using Optique.Reflection;
 
 namespace Optique.Expressions
 {
-    public class ExpressionEvaluator
+    public class ExpressionEvaluator : IExpressionEvaluator
     {
         public BinaryOperatorParserSettings BinaryOperatorParsingSettings { get; } = new BinaryOperatorParserSettings();
         public LiteralParserSettings LiteralParsingSettings { get; } = new LiteralParserSettings();
@@ -38,7 +38,7 @@ namespace Optique.Expressions
             _variableParser = new VariableParser(VariableParsingSettings);
             _functionParser = new FunctionParser(FunctionParserSettings, expressionParserWrapper);
             _constructorParser = new ConstructorParser(ConstructorParserSettings, expressionParserWrapper);
-            _expressionParser = new ExpressionParser(
+            _expressionParser = new ExpressionParser(this,
                     _literalParser,
                     _variableParser,
                     _functionParser,
@@ -90,6 +90,16 @@ namespace Optique.Expressions
                 ConstructorParserSettings.AddType(type);
             }
         }
+
+        public bool IsConstructorRegistered(Type type)
+        {
+            return ConstructorParserSettings.ContainsType(type);
+        }
+        
+        public bool IsConstructorRegistered(string name)
+        {
+            return ConstructorParserSettings.ContainsType(name);
+        }
         
         public void RegisterFunctionsFromType(Type containerType)
         {
@@ -107,6 +117,11 @@ namespace Optique.Expressions
 
                 FunctionParserSettings.AddFunction(methodInfo);
             }
+        }
+
+        public bool IsFunctionRegistered(string name)
+        {
+            return FunctionParserSettings.ContainsFunctions(name);
         }
 
         public void RegisterConstantsFromType(Type containerType)
