@@ -5,7 +5,7 @@ using Optique.Reflection;
 
 namespace Optique.Expressions
 {
-    public class ExpressionEvaluator
+    public class ExpressionEvaluator : IExpressionEvaluator
     {
         public BinaryOperatorParserSettings BinaryOperatorParsingSettings { get; } = new BinaryOperatorParserSettings();
         public LiteralParserSettings LiteralParsingSettings { get; } = new LiteralParserSettings();

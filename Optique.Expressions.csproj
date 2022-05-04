@@ -52,6 +52,7 @@
         <Compile Include="Optique.Expressions\ExpressionMembers\Literal.cs" />
         <Compile Include="Optique.Expressions\ExpressionMembers\ReadOnlyVariable.cs" />
         <Compile Include="Optique.Expressions\ExpressionMembers\Variable.cs" />
+        <Compile Include="Optique.Expressions\Interfaces\IExpressionEvaluator.cs" />
         <Compile Include="Optique.Expressions\Interfaces\INameable.cs" />
         <Compile Include="Optique.Expressions\Interfaces\IParser.cs" />
         <Compile Include="Optique.Expressions\Interfaces\IReadOnlyValueField.cs" />
