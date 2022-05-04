@@ -7,21 +7,23 @@ namespace Optique.Expressions
 {
     public class ExpressionParser : IParser<Expression>
     {
-
         private readonly IParser<Literal> _literalParser;
         private readonly IParser<IReadOnlyValueField> _variableParser;
         private readonly IParser<Function> _functionParser;
         private readonly IParser<Constructor> _constructorParser;
         private readonly IParser<BinaryOperator> _operatorParser;
         private readonly IParser<IValueGetter>[] _parsers;
+        private readonly IExpressionEvaluator _expressionEvaluator;
 
-        internal ExpressionParser(
+        internal ExpressionParser(IExpressionEvaluator expressionEvaluator,
                 IParser<Literal> literalParser,
                 IParser<IReadOnlyValueField> variableParser,
                 IParser<Function> functionParser,
                 IParser<Constructor> constructorParser,
                 IParser<BinaryOperator> operatorParser)
         {
+            _expressionEvaluator = expressionEvaluator;
+            
             _literalParser = literalParser;
             _variableParser = variableParser;
             _functionParser = functionParser;
@@ -39,7 +41,54 @@ namespace Optique.Expressions
                 return false;
             }
 
+            string[] identifiers = ExtractIdentifiers(unparsedValue);
+
+            foreach (string identifier in identifiers)
+            {
+                if ((_expressionEvaluator.VariableParsingSettings.IsActive && _expressionEvaluator.IsVariableRegistered(identifier)) ||
+                    (_expressionEvaluator.FunctionParserSettings.IsActive && _expressionEvaluator.IsFunctionRegistered(identifier)) ||
+                    (_expressionEvaluator.ConstructorParserSettings.IsActive && _expressionEvaluator.IsConstructorRegistered(identifier)))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             return true;
+        }
+
+        private string[] ExtractIdentifiers(string source)
+        {
+            StringBuilder word = new StringBuilder();
+            List<string> result = new List<string>();
+
+            foreach (char c in source)
+            {
+                if (word.Length == 0)
+                {
+                    if (char.IsLetter(c) || c == '_')
+                    {
+                        word.Append(c);
+                    }
+                }
+                else
+                {
+                    if (char.IsLetterOrDigit(c) || c == '_')
+                    {
+                        word.Append(c);
+                    }
+                    else
+                    {
+                        result.Add(word.ToString());
+                        word.Clear();
+                    }
+                }
+            }
+
+            return result.ToArray();
         }
 
         private IValueGetter BuildArgument(IValueGetter valueGetter, bool hasUnaryMinus, bool hasUnaryNegation)

@@ -38,7 +38,7 @@ namespace Optique.Expressions
             _variableParser = new VariableParser(VariableParsingSettings);
             _functionParser = new FunctionParser(FunctionParserSettings, expressionParserWrapper);
             _constructorParser = new ConstructorParser(ConstructorParserSettings, expressionParserWrapper);
-            _expressionParser = new ExpressionParser(
+            _expressionParser = new ExpressionParser(this,
                     _literalParser,
                     _variableParser,
                     _functionParser,
