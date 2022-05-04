@@ -76,6 +76,7 @@ namespace Optique.Expressions
 		{
 			List<MethodInfo> methods = new List<MethodInfo>(_settings.GetFunctions(name));
 			int argumentsCount = argumentsTypes.Length;
+			List<MethodInfo> applicableMethods = new List<MethodInfo>();
 
 			foreach (var method in methods)
 			{
@@ -83,6 +84,15 @@ namespace Optique.Expressions
 
 				if (methodArgumentsTypes.Length == argumentsCount)
 				{
+					bool isAbsolutelyMatch = argumentsTypes
+							.Zip(methodArgumentsTypes, (left, right) => left == right)
+							.All(match => match);
+					
+					if (isAbsolutelyMatch)
+					{
+						return method;
+					}
+					
 					bool successfullyMatched = true;
 					for (int i = 0; i < argumentsCount; ++i)
 					{
@@ -95,11 +105,12 @@ namespace Optique.Expressions
 
 					if (successfullyMatched)
 					{
-						return method;
+						applicableMethods.Add(method);
 					}
 				}
 			}
 
+			if(applicableMethods.Count == 0)
 			{
 				StringBuilder errorMessage = new StringBuilder($"Method {name}(");
 				for (int i = 0; i < argumentsTypes.Length; ++i)
@@ -115,6 +126,11 @@ namespace Optique.Expressions
 				errorMessage.Append(") does not found");
 
 				throw new Exception(errorMessage.ToString());
+			}
+			else
+			{
+				//TODO: check if all arguments are castable
+				return applicableMethods[0];
 			}
 		}
 
