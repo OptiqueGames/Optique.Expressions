@@ -90,6 +90,16 @@ namespace Optique.Expressions
                 ConstructorParserSettings.AddType(type);
             }
         }
+
+        public bool IsConstructorRegistered(Type type)
+        {
+            return ConstructorParserSettings.ContainsType(type);
+        }
+        
+        public bool IsConstructorRegistered(string name)
+        {
+            return ConstructorParserSettings.ContainsType(name);
+        }
         
         public void RegisterFunctionsFromType(Type containerType)
         {
@@ -107,6 +117,11 @@ namespace Optique.Expressions
 
                 FunctionParserSettings.AddFunction(methodInfo);
             }
+        }
+
+        public bool IsFunctionRegistered(string name)
+        {
+            return FunctionParserSettings.ContainsFunctions(name);
         }
 
         public void RegisterConstantsFromType(Type containerType)
