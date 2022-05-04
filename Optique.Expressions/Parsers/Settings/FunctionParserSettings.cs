@@ -81,7 +81,24 @@ namespace Optique.Expressions
 
         internal bool ContainsFunctions(string functionName)
         {
-            return _functionsMap.ContainsKey(functionName);
+            if (IgnoreCase)
+            {
+                functionName = functionName.ToLower();
+                
+                foreach (string key in _functionsMap.Keys)
+                {
+                    if (key.ToLower() == functionName)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                return _functionsMap.ContainsKey(functionName);
+            }
+
+            return false;
         }
 
         internal void ClearFunctionsList()
