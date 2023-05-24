@@ -63,7 +63,10 @@ namespace Optique.Expressions
 
         public static string[] SplitParameters(string source)
         {
-            source = source.Substring(1, source.Length - 2);
+            if(source[0] == '(' && source[source.Length - 1] == ')')
+            {
+                source = source.Substring(1, source.Length - 2);
+            }
 
             List<string> parametersList = new List<string>();
 
