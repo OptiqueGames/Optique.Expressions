@@ -88,6 +88,12 @@ namespace Optique.Expressions
                 }
             }
 
+            if (word.Length > 0)
+            {
+                result.Add(word.ToString());
+                word.Clear();
+            }
+
             return result.ToArray();
         }
 
